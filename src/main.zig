@@ -55,5 +55,7 @@ fn animationFrame(timestamp: f64) callconv(.C) void {
 
     ctx.call("fillRect", .{ g.paddle_pos[0], g.paddle_pos[1], game.paddle_size[0], game.paddle_size[1] }, void);
 
+    ctx.call("fillRect", .{ g.ball_pos[0], g.ball_pos[1], game.ball_size[0], game.ball_size[1] }, void);
+
     zjb.ConstHandle.global.call("requestAnimationFrame", .{zjb.fnHandle("animationFrame", animationFrame)}, void);
 }
