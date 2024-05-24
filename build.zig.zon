@@ -1,0 +1,22 @@
+.{
+    .name = "breakout",
+    .version = "0.0.0",
+    .paths = .{
+        "",
+        // For example...
+        //"build.zig",
+        //"build.zig.zon",
+        //"src",
+        //"LICENSE",
+        //"README.md",
+    },
+    .dependencies = .{
+        .zjb = .{
+            .path = "../zig-javascript-bridge/",
+        },
+        //.zjb = .{
+        //    .url = "https://github.com/scottredig/zig-javascript-bridge/archive/refs/tags/0.1.0.tar.gz",
+        //    .hash = "1220cb0d58f7005b5b3822eb3602fb957dd474ad8a0905912aed37a158666f88922a",
+        //},
+    },
+}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+	<title>Breakout</title>
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+	<style>
+html, body {
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: #111;
+}
+	</style>
+	<script src="zjb_extract.js"></script>
+	<script>
+const env = {
+	memory: new WebAssembly.Memory({initial: 1}),
+	__stack_pointer: 0,
+};
+
+var zjb = new Zjb();
+
+(function() {
+	WebAssembly.instantiateStreaming(fetch("breakout.wasm"), {env: env, zjb: zjb.imports}).then(function (results) {
+		zjb.instance = results.instance;
+		results.instance.exports.main();
+	});
+})();
+	</script>
+</head>
+</html>
