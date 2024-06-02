@@ -1,14 +1,19 @@
+const std = @import("std");
 const zjb = @import("zjb");
-
 const game = @import("game.zig");
-var g = game.Game{};
+
+var allocator = std.heap.wasm_allocator;
+var g: *game.Game = undefined;
 
 var canvas: zjb.Handle = undefined;
 var ctx: zjb.Handle = undefined;
 var window_size: [2]i32 = undefined;
 var last_timestamp: f64 = undefined;
 
+pub const panic = zjb.panic;
 export fn main() void {
+    g = game.Game.create(allocator) catch |e| zjb.throwError(e);
+
     canvas = zjb.global("document").call("createElement", .{zjb.constString("canvas")}, zjb.Handle);
     ctx = canvas.call("getContext", .{zjb.constString("2d")}, zjb.Handle);
 

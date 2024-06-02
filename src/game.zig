@@ -1,3 +1,5 @@
+const std = @import("std");
+
 pub const total_size = [2]comptime_int{ 400, 300 };
 pub const num_blocks = [2]comptime_int{ 10, 5 };
 
@@ -9,6 +11,12 @@ pub const Game = struct {
     paddle_pos: [2]f32 = [2]f32{ (total_size[0] - paddle_size[0]) / 2, total_size[1] - paddle_size[1] - 10 },
     ball_pos: [2]f32 = .{ 0, 0 },
     ball_dir: [2]f32 = .{ 60, 60 },
+
+    pub fn create(allocator: std.mem.Allocator) !*Game {
+        const g = try allocator.create(Game);
+        g.* = .{};
+        return g;
+    }
 
     pub fn step(g: *Game, dt: f32) void {
         inline for (0..2) |d| {
