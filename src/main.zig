@@ -49,7 +49,7 @@ fn animationFrame(timestamp: f64) callconv(.C) void {
 
     // Draw rectangles from game
     ctx.set("fillStyle", zjb.constString("#fff"));
-    for (g.draw_rectangles.buffer) |bounds| {
+    for (g.draw_rectangles.constSlice()) |bounds| {
         ctx.call("fillRect", .{ bounds.min[0], bounds.min[1], bounds.size[0], bounds.size[1] }, void);
     }
 
