@@ -47,20 +47,11 @@ fn animationFrame(timestamp: f64) callconv(.C) void {
     ctx.set("fillStyle", zjb.constString("#000"));
     ctx.call("fillRect", .{ 0, 0, window_size[0], window_size[1] }, void);
 
-    // Draw blocks
+    // Draw rectangles from game
     ctx.set("fillStyle", zjb.constString("#fff"));
-    for (0..game.num_blocks[0]) |x| {
-        for (0..game.num_blocks[1]) |y| {
-            if (g.blocks[x + y * game.num_blocks[0]]) {
-                const b = game.blockBounds(.{ x, y });
-                ctx.call("fillRect", .{ b.min[0], b.min[1], b.max[0] - b.min[0], b.max[1] - b.min[1] }, void);
-            }
-        }
+    for (g.draw_rectangles.buffer) |bounds| {
+        ctx.call("fillRect", .{ bounds.min[0], bounds.min[1], bounds.size[0], bounds.size[1] }, void);
     }
-
-    ctx.call("fillRect", .{ g.paddle_pos[0], g.paddle_pos[1], game.paddle_size[0], game.paddle_size[1] }, void);
-
-    ctx.call("fillRect", .{ g.ball_pos[0], g.ball_pos[1], game.ball_size[0], game.ball_size[1] }, void);
 
     zjb.ConstHandle.global.call("requestAnimationFrame", .{zjb.fnHandle("animationFrame", animationFrame)}, void);
 }
