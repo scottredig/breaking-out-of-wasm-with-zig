@@ -24,6 +24,9 @@ export fn main() void {
         body.call("appendChild", .{canvas}, void);
     }
 
+    zjb.global("document").call("addEventListener", .{ zjb.constString("keydown"), zjb.fnHandle("keyDown", keyDown) }, void);
+    zjb.global("document").call("addEventListener", .{ zjb.constString("keyup"), zjb.fnHandle("keyUp", keyUp) }, void);
+
     {
         const timeline = zjb.global("document").get("timeline", zjb.Handle);
         defer timeline.release();
@@ -54,4 +57,32 @@ fn animationFrame(timestamp: f64) callconv(.C) void {
     }
 
     zjb.ConstHandle.global.call("requestAnimationFrame", .{zjb.fnHandle("animationFrame", animationFrame)}, void);
+}
+
+fn eventButton(event: zjb.Handle) ?game.Button {
+    const key = event.get("key", zjb.Handle);
+    defer key.release();
+    if (key.eql(zjb.constString("ArrowLeft"))) {
+        return .left;
+    }
+    if (key.eql(zjb.constString("ArrowRight"))) {
+        return .right;
+    }
+    return null;
+}
+
+fn keyDown(event: zjb.Handle) callconv(.C) void {
+    defer event.release();
+
+    if (eventButton(event)) |button| {
+        g.press(button);
+    }
+}
+
+fn keyUp(event: zjb.Handle) callconv(.C) void {
+    defer event.release();
+
+    if (eventButton(event)) |button| {
+        g.release(button);
+    }
 }
