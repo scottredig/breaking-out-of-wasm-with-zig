@@ -1,6 +1,6 @@
 const std = @import("std");
 
-const total_size = [2]comptime_int{ 400, 300 };
+pub const total_size = [2]comptime_int{ 400, 300 };
 const num_blocks = [2]comptime_int{ 10, 10 };
 
 const paddle_size = [2]f32{ 60, 7 };
