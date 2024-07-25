@@ -1,5 +1,5 @@
 .{
-    .name = "breakout",
+    .name = "breaking-out-of-wasm",
     .version = "0.0.0",
     .paths = .{
         "",
@@ -12,11 +12,8 @@
     },
     .dependencies = .{
         .zjb = .{
-            .path = "../zig-javascript-bridge/",
+            .url = "https://github.com/scottredig/zig-javascript-bridge/archive/835ee956f080ad35debeb35b4400ee534f2bf75e.zip",
+            .hash = "12209c3a507dfecac179332d21a492d51ed3dd4fbcc23b7cf22a66f1fc072c7e40d3",
         },
-        //.zjb = .{
-        //    .url = "https://github.com/scottredig/zig-javascript-bridge/archive/refs/tags/0.1.0.tar.gz",
-        //    .hash = "1220cb0d58f7005b5b3822eb3602fb957dd474ad8a0905912aed37a158666f88922a",
-        //},
     },
 }

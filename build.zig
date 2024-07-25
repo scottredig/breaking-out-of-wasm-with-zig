@@ -8,7 +8,7 @@ pub fn build(b: *std.Build) void {
 
     const breakout = b.addExecutable(.{
         .name = "breakout",
-        .root_source_file = .{ .path = "src/main.zig" },
+        .root_source_file = b.path("src/main.zig"),
         .target = b.resolveTargetQuery(.{ .cpu_arch = .wasm32, .os_tag = .freestanding }),
         .optimize = optimize,
     });
@@ -29,7 +29,7 @@ pub fn build(b: *std.Build) void {
     breakout_step.dependOn(&b.addInstallFileWithDir(extract_breakout_out, dir, "zjb_extract.js").step);
 
     breakout_step.dependOn(&b.addInstallDirectory(.{
-        .source_dir = .{ .path = "static" },
+        .source_dir = b.path("static"),
         .install_dir = dir,
         .install_subdir = "",
     }).step);
